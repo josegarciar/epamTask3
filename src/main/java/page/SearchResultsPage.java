@@ -1,25 +1,23 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
+public class SearchResultsPage extends page.BaseClassPage {
+    @FindBy(xpath = "(//div[@class='gs-title']/a[contains(@href, 'cloud.google.com/products/calculator') and contains(., 'Google Cloud Pricing Calculator')])[1]")
+    private WebElement calculatorLink;
 
-
-import static page.MainPage.waitForElementLocated;
-
-public class SearchResultsPage {
-    private static final String SEARCH_FIELD = "//input[@aria-label='Search']";
-    private static final String CALCULATOR_LINK = "(//div[@class='gs-title']/a[contains(@href, 'cloud.google.com/products/calculator') and contains(., 'Google Cloud Pricing Calculator')])[1]";
-
-    public SearchResultsPage searchText(WebDriver driver, String text){
-        waitForElementLocated(driver, By.xpath(SEARCH_FIELD));
-        driver.findElement(By.xpath(SEARCH_FIELD)).sendKeys(text);
-        driver.findElement(By.xpath(SEARCH_FIELD)).submit();
-        return this;
+    public SearchResultsPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
     }
-    public SearchResultsPage selectCalculatorLink(WebDriver driver){
-        waitForElementLocated(driver,By.xpath(CALCULATOR_LINK));
-        driver.findElement(By.xpath(CALCULATOR_LINK)).click();
-        return this;
+
+
+    public void selectCalculatorLink(){
+        waitForElementLocated(driver, convertToBy(calculatorLink));
+        calculatorLink.click();
+
     }
 }

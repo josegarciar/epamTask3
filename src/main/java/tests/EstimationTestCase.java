@@ -11,70 +11,70 @@ import page.MainPage;
 import page.SearchResultsPage;
 
 import static org.junit.Assert.assertEquals;
-import static page.CalculatorPage.*;
-import static page.EstimationPage.*;
 
-public class EstimationTestCase {
+ public class EstimationTestCase {
+
     private WebDriver driver;
+
+    String searchData= "Google Cloud Platform Pricing Calculator";
+    String instanceNumber= "4";
+    String operatingSystem= "Free: Debian, CentOS, CoreOS, Ubuntu or BYOL (Bring Your Own License)";
+    String provisioningModel= "Regular";
+    String machineType="n1-standard-8, vCPUs: 8, RAM: 30 GB";
+    String addGpus= "true";
+    String gpuModel= "NVIDIA V100";
+    String numberOfGpus= "1";
+    String localSsd = "2x375 GB";
+    String region = "Netherlands (europe-west4)";
+    String commitedUseDiscount= "1 year";
 
     @Before
     public void setUp() {
         driver = new ChromeDriver();
     }
-    @Test
-    public void googleCloudSearchTest() throws InterruptedException {
-        //open search app
-        MainPage validateOpenSearch = new MainPage()
-                .openPage(driver);
-        //search for the Google Cloud Platform Pricing Calculator, and click on the link
-         SearchResultsPage validateOpenCalculation = new SearchResultsPage()
-                 .searchText(driver, "Google Cloud Platform Pricing Calculator")
-                 .selectCalculatorLink(driver);
-         //select the items for the calculation form
-         CalculatorPage validateSelection = (CalculatorPage) new CalculatorPage()
-                 //open estimation page
-                 .openEstimation(driver)
-                 //enter data to the element 1 = number of instances
-                 .sendData(driver,NUMBER_OF_INSTANCES,"4")
-                 //select option 1 from the element 3 = Operating system
-                 .selectData(driver,OS_SOFTWARE1, OS_SOFTWARE2,1)
-                 //click on the provisioning Model Regular button
-                 .clickOption(driver, 1)
-                 //select option 1 from the element 4 = Machine Family
-                 .selectData(driver,MACHINE_FAMILY1, MACHINE_FAMILY2,1)
-                 //select option 1 from the element 5 = series
-                 .selectData(driver,SERIES1, SERIES2,1)
-                 //select option 7 from the element 6 = Machine Type
-                 .selectData(driver,MACHINE_TYPE1, MACHINE_TYPE2,7)
-                 //click on the provisioning Add GPU button
-                 .clickOption(driver,3)
-                 //select option 2 from the element 7 = GPU Model
-                 .selectData(driver,GPU_MODEL1, GPU_MODEL2,2)
-                 //select option 1 from the element 8 = Number of GPUs
-                 .selectData(driver,NUMBER_OF_GPUS1, NUMBER_OF_GPUS2,1)
-                 //select option 3 from the element 9 = Local SSD
-                 .selectData(driver,LOCAL_SSD1, LOCAL_SSD2,3)
-                 //select option 5 from the element 10 = Region
-                 .selectData(driver, REGION1, REGION2,5)
-                 //click on the provisioning Commited use 1 Year button
-                 .clickOption(driver, 4)
-                 //click on the provisioning Share button
-                 .clickOption(driver, 5)
-                 //click on the provisioning Open Estimate Summary button
-                 .clickOption(driver,6);
 
-         //asserts for all the elements entered agains the estimation page
-        EstimationPage validate2 = new EstimationPage();
-        assertEquals("4",validate2.getText(driver,INSTANCE_NUMBER));
-        assertEquals("Free: Debian, CentOS, CoreOS, Ubuntu or BYOL (Bring Your Own License)",validate2.getText(driver,OPERATING_SYSTEM));
-        assertEquals("Regular",validate2.getText(driver,PROVISIONING_MODEL));
-        assertEquals("n1-standard-8, vCPUs: 8, RAM: 30 GB",validate2.getText(driver,MACHINE_TYPE));
-        assertEquals("true",validate2.getText(driver,ADD_GPUS));
-        assertEquals("NVIDIA V100",validate2.getText(driver,GPU_MODEL));
-        assertEquals("1",validate2.getText(driver,NUMBER_OF_GPUS));
-        assertEquals("2x375 GB",validate2.getText(driver,LOCAL_SSD));
-        assertEquals("Netherlands (europe-west4)",validate2.getText(driver,REGION));
-        assertEquals("1 year",validate2.getText(driver,COMMITED_USE_DISCOUNT));
+    @Test
+    public void createNewPaste() {
+        //Step 1 Open https://pastebin.com/ or a similar service in any browser.
+        MainPage mainPage = new MainPage(driver);
+        mainPage.openPage();
+        mainPage.searchPage(searchData);
+
+        SearchResultsPage searchResultsPage = new SearchResultsPage(driver);
+        searchResultsPage.selectCalculatorLink();
+
+
+        CalculatorPage calculatorPage = new CalculatorPage(driver);
+        calculatorPage.clickAddToEstimateBtn();
+        calculatorPage.clickComputeEngineBtn();
+        calculatorPage.enterNumberOfInstances(instanceNumber);
+        calculatorPage.selectOsSoftware(1);
+        calculatorPage.clickProvisioningRegularBtn();
+        calculatorPage.selectMachineFamily(1);
+        calculatorPage.selectSeries(1);
+        calculatorPage.selectMachineType(7);
+        calculatorPage.clickAddGpuBtn();
+        calculatorPage.selectGpuModel(2);
+        calculatorPage.selectNumberOfGpus(1);
+        calculatorPage.selectLocalSsd(3);
+        calculatorPage.selectRegion(5);
+        calculatorPage.clickCommitedUse1Year();
+        calculatorPage.clickShareBtn();
+        calculatorPage.clickOpenEstimateSummary();
+
+        // validate created estimation in new page
+        EstimationPage estimationPage = new EstimationPage(driver);
+        // verify the estimation values
+        assertEquals(instanceNumber, estimationPage.getInstanceNumberText());
+        assertEquals(operatingSystem, estimationPage.getOperatingSystemText());
+        assertEquals(provisioningModel, estimationPage.getProvisioningModelText());
+        assertEquals(machineType, estimationPage.getMachineTypeText());
+        assertEquals(addGpus, estimationPage.getAddGpusText());
+        assertEquals(gpuModel, estimationPage.getGpuModelText());
+        assertEquals(numberOfGpus, estimationPage.getNumberOfGpusText());
+        assertEquals(localSsd, estimationPage.getLocalSsdText());
+        assertEquals(region, estimationPage.getRegionText());
+        assertEquals(commitedUseDiscount, estimationPage.getCommitedUseDiscountText());
     }
 
     @After
@@ -84,3 +84,18 @@ public class EstimationTestCase {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
