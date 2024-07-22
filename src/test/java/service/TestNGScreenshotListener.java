@@ -18,15 +18,16 @@ public class TestNGScreenshotListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult result) {
-        saveScreenshot();
+        String fail= "Failed-";
+        saveScreenshot(fail);
     }
 
-    private void saveScreenshot() {
+    private void saveScreenshot(String status) {
         WebDriver driver = DriverSingleton.getDriver();
         File screenCapture = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenCapture, new File(
-                    ".//target/screenshots/" + getCurrentTimeAsString() + ".png"));
+                    ".//target/screenshots/"+ status + getCurrentTimeAsString() + ".png"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -41,7 +42,9 @@ public class TestNGScreenshotListener implements ITestListener {
     public void onTestStart(ITestResult result) {}
 
     @Override
-    public void onTestSuccess(ITestResult result) {}
+    public void onTestSuccess(ITestResult result) {
+        String pass= "Passed-";
+        saveScreenshot(pass);}
 
     @Override
     public void onTestSkipped(ITestResult result) {}

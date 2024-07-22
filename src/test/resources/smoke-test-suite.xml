@@ -3,7 +3,12 @@
     <listeners>
         <listener class-name="service.TestNGScreenshotListener"/>
     </listeners>
-    <test name="EstimationTestCase">
+    <test name="EstimationTestCase1">
+        <classes>
+            <class name="test.EstimationTestCase"/>
+        </classes>
+    </test>
+    <test name="EstimationTestCase2">
         <classes>
             <class name="test.EstimationTestCase"/>
         </classes>

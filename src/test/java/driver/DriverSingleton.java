@@ -14,6 +14,7 @@ public class DriverSingleton {
     public static synchronized WebDriver getDriver(){
         if (driver == null) {
             String browser = System.getProperty("browser", "chrome").toLowerCase();
+            //select the webdriverManager to use, chrome or firefox
             switch (browser) {
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
@@ -25,9 +26,10 @@ public class DriverSingleton {
                     driver = new ChromeDriver();
                     break;
             }
-
+            //miximize the window
             driver.manage().window().maximize();
         }
+        //return the driver for the selected browser to use it on the test case
         return driver;
     }
 

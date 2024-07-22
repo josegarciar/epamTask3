@@ -20,7 +20,7 @@ public class EstimationTestCase {
         driver = DriverSingleton.getDriver();
         estimationService = new EstimationService(driver);
 
-        // Cargar datos de prueba desde TestDataReader
+        // Load test data for the TestDataReader
         estimationModel = new EstimationModel();
         estimationModel.setSearchData(TestDataReader.getTestData("searchData"));
         estimationModel.setInstanceNumber(TestDataReader.getTestData("instanceNumber"));

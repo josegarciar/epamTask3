@@ -33,18 +33,18 @@ public class EstimationService {
         calculatorPage.clickAddToEstimateBtn();
         calculatorPage.clickComputeEngineBtn();
         calculatorPage.enterNumberOfInstances(estimationModel.getInstanceNumber());
-        calculatorPage.selectOsSoftware(1); // Assuming dropdown index
+        calculatorPage.selectOsSoftware(1); // option 1 free debian
         calculatorPage.clickProvisioningRegularBtn();
-        calculatorPage.selectMachineFamily(1); // Assuming dropdown index
-        calculatorPage.selectSeries(1); // Assuming dropdown index
-        calculatorPage.selectMachineType(7); // Assuming dropdown index
+        calculatorPage.selectMachineFamily(1); // option 1 General Purpose
+        calculatorPage.selectSeries(1); // option 1 N1
+        calculatorPage.selectMachineType(7); // option 7 n1 - starndard-8
         if (estimationModel.isAddGpus()) {
             calculatorPage.clickAddGpuBtn();
-            calculatorPage.selectGpuModel(2); // Assuming dropdown index
-            calculatorPage.selectNumberOfGpus(1); // Assuming dropdown index
+            calculatorPage.selectGpuModel(2); // option 2 Nvidia 100
+            calculatorPage.selectNumberOfGpus(1); // option 1 1
         }
-        calculatorPage.selectLocalSsd(3); // Assuming dropdown index
-        calculatorPage.selectRegion(5); // Assuming dropdown index
+        calculatorPage.selectLocalSsd(3); // option 3 2x375 GB
+        calculatorPage.selectRegion(5); // option 5 Netherlands (europe-west4)
         calculatorPage.clickCommitedUse1Year();
         calculatorPage.clickShareBtn();
         calculatorPage.clickOpenEstimateSummary();
